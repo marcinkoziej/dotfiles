@@ -26,9 +26,13 @@ pr_commits()
 	  git checkout master
 	  git pull
 	  git checkout -b $br
-	  while [ -n "$1" -a "$?"=0 ]; do 
+	  while [ -n "$1" -a "$?"=0 ]; do
 	      commit=$1; shift
 	      git cherry-pick $commit
 	  done
-	  git push origin $br
+    if [ "$?"=0 ]; then
+	      git push origin $br
+    else
+        echo "Errors, not pushing branch"
+    fi
 }
