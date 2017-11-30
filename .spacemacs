@@ -362,5 +362,6 @@ you should place your code here."
  )
 
 (defun dotspacemacs/user-config ()
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
   (setq-default evil-escape-key-sequence "zz")
   (editorconfig-mode 1))
