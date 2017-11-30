@@ -36,3 +36,5 @@ pr_commits()
         echo "Errors, not pushing branch"
     fi
 }
+
+alias dfm="(unset DISPLAY; vlc http://stereo.dfm.nu)"
