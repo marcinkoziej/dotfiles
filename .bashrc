@@ -1,7 +1,7 @@
 
 fortune $HOME/share/alejandro
 
-
+export ANSIBLE_NOCOWS=1
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export EDITOR=emacs
@@ -38,3 +38,6 @@ pr_commits()
 }
 
 alias dfm="(unset DISPLAY; vlc http://stereo.dfm.nu)"
+alias pingg="ping google"
+alias ping8="ping 8.8.8.8"
+
