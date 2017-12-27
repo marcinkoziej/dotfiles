@@ -1,7 +1,6 @@
 
 fortune $HOME/share/alejandro
 
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export EDITOR=emacs
@@ -12,9 +11,7 @@ eval $(thefuck --alias)
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-alias rex="rancher exec -ti"
-alias rlog="rancher logs --tail=1000"
-
+# Git
 pr_commits()
 {
     if [ $# -lt 2 ]; then
@@ -37,4 +34,23 @@ pr_commits()
     fi
 }
 
+# DFM radio
 alias dfm="(unset DISPLAY; vlc http://stereo.dfm.nu)"
+
+# Notwork
+alias pingg="ping google"
+alias ping8="ping 8.8.8.8"
+
+# Docker
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+drm() { docker rm $(docker ps -q -a); }
+dri() { docker rmi $(docker images -q); }
+alias dkd="docker run -d -P"
+alias dki="docker run -t -i -P"
+db() { docker build -t="$1" .; }
+
+# Rancher
+alias rex="rancher exec -ti"
+alias rlog="rancher logs --tail=1000"
+
+export ANSIBLE_NOCOWS=1
