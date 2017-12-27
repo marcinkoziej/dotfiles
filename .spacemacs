@@ -58,8 +58,9 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
+     syntax-checking
      ;; version-control
+     koziej
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -343,6 +344,8 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flycheck-javascript-eslint-executable
+   "/home/marcin/Projects/open-speakout/node_modules/.bin/eslint")
  '(global-vi-tilde-fringe-mode nil)
  '(grep-command "grep --color -nH -r ")
  '(js2-basic-offset 2)
@@ -364,4 +367,17 @@ you should place your code here."
 (defun dotspacemacs/user-config ()
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
   (setq-default evil-escape-key-sequence "zz")
+  (setq js2-mode-show-parse-errors nil)
+  (setq js2-mode-show-strict-warnings nil)
+  (setq flycheck-disabled-checkers '(javascript-jshint))
+  (setq flycheck-checkers '(javascript-eslint))
+
+  ;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+
+  ;; end FlyCheck
+
   (editorconfig-mode 1))
