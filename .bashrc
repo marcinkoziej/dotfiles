@@ -1,4 +1,3 @@
-
 fortune $HOME/share/alejandro
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
@@ -38,7 +37,7 @@ pr_commits()
 alias dfm="(unset DISPLAY; vlc http://stereo.dfm.nu)"
 
 # Notwork
-alias pingg="ping google"
+alias pingg="ping google.com"
 alias ping8="ping 8.8.8.8"
 
 # Docker
