@@ -1,6 +1,18 @@
 fortune $HOME/share/alejandro
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+ 
+function color_my_prompt {
+    local __user_and_host="\[\033[01;32m\]\u@\h"
+    local __cur_location="\[\033[01;34m\]\w"
+    local __git_branch_color="\[\033[31m\]"
+    #local __git_branch="\`ruby -e \"print (%x{git branch 2> /dev/null}.grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\`"
+    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+    local __prompt_tail="\[\033[35m\]$"
+    local __last_color="\[\033[00m\]"
+    export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+}
+color_my_prompt
 
 export EDITOR=emacs
 
@@ -9,6 +21,11 @@ eval $(thefuck --alias)
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# RVM
+#if [ -e /etc/profile.d/rvm.sh ]; then
+#  source /etc/profile.d/rvm.sh
+#fi
 
 # Git
 pr_commits()
