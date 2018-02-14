@@ -50,6 +50,9 @@ pr_commits()
     fi
 }
 
+# General
+alias xo=xdg-open
+
 # DFM radio
 alias dfm="(unset DISPLAY; vlc http://stereo.dfm.nu)"
 
@@ -68,5 +71,6 @@ db() { docker build -t="$1" .; }
 # Rancher
 alias rex="rancher exec -ti"
 alias rlog="rancher logs --tail=1000"
+
 
 export ANSIBLE_NOCOWS=1

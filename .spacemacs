@@ -349,6 +349,7 @@ you should place your code here."
    "/home/marcin/Projects/open-speakout/node_modules/.bin/eslint")
  '(global-vi-tilde-fringe-mode nil)
  '(grep-command "grep --color -nH -r ")
+ '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(paradox-automatically-star t)
  '(paradox-github-token t)
