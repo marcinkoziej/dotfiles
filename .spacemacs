@@ -23,7 +23,7 @@ values."
    dotspacemacs-enable-lazy-installation 'unused
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
-   dotspacemacs-ask-for-lazy-installation t
+   dotspacemacs-ask-for-lazy-installation nil
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
@@ -351,6 +351,10 @@ you should place your code here."
  '(grep-command "grep --color -nH -r ")
  '(js-indent-level 2)
  '(js2-basic-offset 2)
+ '(org-agenda-files (quote ("~/Desktop")))
+ '(package-selected-packages
+   (quote
+    (phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode winum wgrep smex org-mime ivy-hydra counsel-projectile counsel swiper ivy yapfify yaml-mode ws-butler which-key web-mode web-beautify volatile-highlights uuidgen use-package toc-org tagedit sql-indent spaceline smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file ob-elixir neotree move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jinja2-mode info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump define-word cython-mode csv-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
  '(python-shell-virtualenv-path "/home/marcin/Projects/venv3")

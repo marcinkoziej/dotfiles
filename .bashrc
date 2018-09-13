@@ -42,12 +42,20 @@ pr_commits()
 	  while [ -n "$1" -a "$?"=0 ]; do
 	      commit=$1; shift
 	      git cherry-pick $commit
+        if [ ! "$?"=0 ]; then
+            return
+        fi
 	  done
     if [ "$?"=0 ]; then
 	      git push origin $br
     else
         echo "Errors, not pushing branch"
     fi
+}
+
+git-steal()
+{
+  git show $1:$2 > $2
 }
 
 # General
@@ -74,3 +82,6 @@ alias rlog="rancher logs --tail=1000"
 
 
 export ANSIBLE_NOCOWS=1
+
+alias fixkeyboard="sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'"
+
