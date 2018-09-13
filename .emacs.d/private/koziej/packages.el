@@ -61,8 +61,8 @@ Each entry is either:
 
 (defun koziej/init-yaml-path ()
   (use-package yaml-path
-    :init (add-hook 'yaml-mode-hook
-                    (lambda () (require 'yaml-path)))
+    :defer f
+    :init (lambda () (debug "yo"))
     :bind (:map yaml-mode-map
                 ("C-c /" . yaml-path/path))
     ))
