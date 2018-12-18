@@ -81,7 +81,15 @@ alias rex="rancher exec -ti"
 alias rlog="rancher logs --tail=1000"
 
 
+alias fixkeyboard="sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'"
+alias xo=xdg-open
+
 export ANSIBLE_NOCOWS=1
 
-alias fixkeyboard="sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'"
+env-dev() {
+    export RACK_ENV=development ORG_NAME="$1" THEME="$1"
+}
 
+env-test() {
+    export RACK_ENV=test ORG_NAME="$1" THEME="$1"
+}
