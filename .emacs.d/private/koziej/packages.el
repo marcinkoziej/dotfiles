@@ -30,7 +30,7 @@
 ;;; Code:
 
 (defconst koziej-packages
-  '(yaml-path :location local)
+  '((yaml-path :location local))
     )
   "The list of Lisp packages required by the koziej layer.
 

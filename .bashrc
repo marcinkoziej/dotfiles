@@ -23,9 +23,9 @@ eval $(thefuck --alias)
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # RVM
-#if [ -e /etc/profile.d/rvm.sh ]; then
-#  source /etc/profile.d/rvm.sh
-#fi
+if [ -e /etc/profile.d/rvm.sh ]; then
+  source /etc/profile.d/rvm.sh
+fi
 
 # Git
 pr_commits()
@@ -58,6 +58,24 @@ git-steal()
   git show $1:$2 > $2
 }
 
+nasz()
+{
+    case $1 in
+        nip)
+            echo 5223026714
+        ;;
+        krs)
+            echo 0000552033
+            ;;
+        regon)
+            echo 361255246
+            ;;
+        telefon)
+            echo 0048222528144
+            ;;
+    esac
+}
+
 # General
 alias xo=xdg-open
 
@@ -80,6 +98,7 @@ db() { docker build -t="$1" .; }
 alias rex="rancher exec -ti"
 alias rlog="rancher logs --tail=1000"
 
+alias beep="paplay /usr/share/sounds/ubuntu/stereo/message.ogg"
 
 alias fixkeyboard="sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'"
 alias xo=xdg-open
