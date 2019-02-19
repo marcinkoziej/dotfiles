@@ -41,7 +41,7 @@ values."
      yaml
      html
      javascript
-     ivy
+     ;; ivy
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -60,6 +60,7 @@ values."
      ;; spell-checking
      syntax-checking
      ;; version-control
+     better-defaults
      koziej
      )
    ;; List of additional packages that will be installed without being
@@ -68,6 +69,9 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       editorconfig
+                                      vue-mode
+                                      lsp-vue
+                                      company-lsp
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -349,7 +353,11 @@ you should place your code here."
    "/home/marcin/Projects/open-speakout/node_modules/.bin/eslint")
  '(global-vi-tilde-fringe-mode nil)
  '(grep-command "grep --color -nH -r ")
+ '(js-indent-level 2)
  '(js2-basic-offset 2)
+ '(package-selected-packages
+   (quote
+    (lsp-vue company-lsp lsp-mode yapfify yaml-mode ws-butler winum which-key wgrep web-mode web-beautify vue-mode volatile-highlights uuidgen use-package unfill toc-org tagedit sql-indent spaceline smex smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-elixir neotree mwim move-text minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jinja2-mode ivy-hydra indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump define-word cython-mode csv-mode counsel-projectile column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bracketed-paste auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
  '(python-shell-virtualenv-path "/home/marcin/Projects/venv3")
