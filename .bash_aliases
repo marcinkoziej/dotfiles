@@ -18,6 +18,8 @@ alias rex="rancher exec -ti"
 alias rlog="rancher logs --tail=1000"
 
 alias xo=xdg-open
+alias beep="paplay /usr/share/sounds/ubuntu/stereo/message.ogg"
+alias fixkeyboard="sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'"
 
 export ANSIBLE_NOCOWS=1
 
@@ -50,6 +52,29 @@ pr_commits()
     else
         echo "Errors, not pushing branch"
     fi
+}
+
+git-steal()
+{
+    git show $1:$2 > $2
+}
+
+nasz()
+{
+    case $1 in
+        nip)
+            echo 5223026714
+        ;;
+        krs)
+            echo 0000552033
+            ;;
+        regon)
+            echo 361255246
+            ;;
+        telefon)
+            echo 0048222528144
+            ;;
+    esac
 }
 
 

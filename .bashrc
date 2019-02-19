@@ -85,7 +85,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -120,7 +120,6 @@ fi
 
 fortune $HOME/share/alejandro
 
-export PATH="$PATH:$HOME/.rvm/bin:$HOME/.mix/escripts" # Add RVM to PATH for scripting
 
 function color_my_prompt {
     local __user_and_host="\[\033[01;33m\]\u@\h"
@@ -143,6 +142,8 @@ eval $(thefuck --alias)
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # RVM
-#if [ -e /etc/profile.d/rvm.sh ]; then
-#  source /etc/profile.d/rvm.sh
-#fi
+# export PATH="$PATH:$HOME/.rvm/bin:$HOME/.mix/escripts" # Add RVM to PATH for scripting
+if [ -e /etc/profile.d/rvm.sh ]; then
+  source /etc/profile.d/rvm.sh
+fi
+

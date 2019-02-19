@@ -1,6 +1,6 @@
 [user]
+	email = marcin@akcjademokracja.pl
 	name = Marcin Koziej
-	email = marcin@cahoots.pl
 [push]
 	default = simple
 [alias]
@@ -8,7 +8,10 @@
 	ci = commit
 	st = status
 	br = branch
-  sb = show-branch
+	sb = show-branch
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	type = cat-file -t
 	dump = cat-file -p
+	emerge = mergetool --tool=\"emerge -mm\"
+  featlog = "!f(){ git log -p $1 --not master;}; f"
+

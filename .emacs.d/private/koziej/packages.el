@@ -30,8 +30,7 @@
 ;;; Code:
 
 (defconst koziej-packages
-  '(
-    (yaml-path :location local)
+  '((yaml-path :location local))
     )
   "The list of Lisp packages required by the koziej layer.
 
@@ -58,12 +57,12 @@ Each entry is either:
         `./local/PACKAGE/PACKAGE.el'
 
       - A list beginning with the symbol `recipe' is a melpa
-        recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+        recipe.  See: https://github.com/milkypostman/melpa#recipe-format"
 
 (defun koziej/init-yaml-path ()
   (use-package yaml-path
-    :init (add-hook 'yaml-mode-hook
-                    (lambda () (require 'yaml-path)))
+    :defer f
+    :init (lambda () (debug "yo"))
     :bind (:map yaml-mode-map
                 ("C-c /" . yaml-path/path))
     ))
