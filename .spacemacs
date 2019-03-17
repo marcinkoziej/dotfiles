@@ -396,6 +396,7 @@ you should place your code here."
               (require 'eglot)
               (add-to-list 'eglot-server-programs '(elixir-mode . ("/home/marcin/share/elixir-ls/language_server.sh")))
               (define-key eglot-mode-map (kbd "C-c h") 'eglot-help-at-point)
+              (define-key eglot-mode-map (kbd "C-c f") 'eglot-format)
               (define-key eglot-mode-map (kbd "C-c d") 'xref-find-definitions)
               ))
 
