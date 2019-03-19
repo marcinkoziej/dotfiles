@@ -23,7 +23,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git ruby rvm mix systemctl colorize heroku) 
 
 source $ZSH/oh-my-zsh.sh
 
@@ -74,6 +74,8 @@ alias rlog="rancher logs --tail=1000"
 alias xo=xdg-open
 alias beep="paplay /usr/share/sounds/ubuntu/stereo/message.ogg"
 alias fixkeyboard="sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'"
+
+alias pd=pushd
 
 export ANSIBLE_NOCOWS=1
 
@@ -135,3 +137,8 @@ nasz()
 alias arm-objdump=/usr/local/mcuxpressoide-10.3.0_2200/ide/plugins/com.nxp.mcuxpresso.tools.linux_10.3.0.201811011841/tools/arm-none-eabi/bin/objdump
 
 eval $(thefuck --alias)
+
+ZSH_SYNTAX_HIGHLIGHTING=/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -e $ZSH_SYNTAX_HIGHLIGHTING ]]
+   then source $ZSH_SYNTAX_HIGHLIGHTING
+fi
