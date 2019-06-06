@@ -26,6 +26,7 @@ ZSH_THEME="robbyrussell"
 plugins=(git ruby rvm mix colorize heroku) 
 
 source $ZSH/oh-my-zsh.sh
+source /etc/profile.d/rvm.sh
 
 # User configuration
 
@@ -76,6 +77,7 @@ alias beep="paplay /usr/share/sounds/ubuntu/stereo/message.ogg"
 alias fixkeyboard="sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'"
 
 alias pd=pushd
+alias gshb="git show-branch"
 
 export ANSIBLE_NOCOWS=1
 
