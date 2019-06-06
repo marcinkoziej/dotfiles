@@ -61,6 +61,7 @@ values."
      syntax-checking
      ;; version-control
      better-defaults
+     emoji
      koziej
      )
    ;; List of additional packages that will be installed without being
@@ -350,6 +351,10 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(exec-path
+   (quote
+    ("/usr/local/heroku/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1@global/bin/" "/home/marcin/.rvm/rubies/ruby-2.3.1/bin/" "/home/marcin/bin/" "/usr/local/sbin/" "/usr/local/bin/" "/usr/sbin/" "/usr/bin/" "/sbin/" "/bin/" "/usr/games/" "/usr/local/games/" "/snap/bin/" "/home/marcin/.rvm/bin/" "/usr/lib/x86_64-linux-gnu/emacs/26.1/x86_64-linux-gnu/" "/usr/local/bin")))
+ '(flycheck-emacs-lisp-load-path (quote inherit))
  '(flycheck-javascript-eslint-executable
    "/home/marcin/Projects/open-speakout/node_modules/.bin/eslint")
  '(global-vi-tilde-fringe-mode nil)
@@ -359,7 +364,7 @@ you should place your code here."
  '(org-agenda-files (quote ("~/Desktop")))
  '(package-selected-packages
    (quote
-    (flymake jsonrpc powerline pcre2el org-category-capture alert log4e gntp markdown-mode magit-popup skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode hydra parent-mode projectile request haml-mode gitignore-mode pos-tip flycheck flx highlight magit transient lv git-commit with-editor smartparens iedit anzu evil goto-chg elixir-mode pkg-info epl diminish company ht dash-functional inf-ruby bind-map bind-key packed pythonic helm avy helm-core popup async f s dash eglot lsp-vue company-lsp lsp-mode yapfify yaml-mode ws-butler winum which-key wgrep web-mode web-beautify vue-mode volatile-highlights uuidgen use-package unfill toc-org tagedit sql-indent spaceline smex smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-elixir neotree mwim move-text minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jinja2-mode ivy-hydra indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump define-word cython-mode csv-mode counsel-projectile column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bracketed-paste auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (emoji-cheat-sheet-plus flymake jsonrpc powerline pcre2el org-category-capture alert log4e gntp markdown-mode magit-popup skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode hydra parent-mode projectile request haml-mode gitignore-mode pos-tip flycheck flx highlight magit transient lv git-commit with-editor smartparens iedit anzu evil goto-chg elixir-mode pkg-info epl diminish company ht dash-functional inf-ruby bind-map bind-key packed pythonic helm avy helm-core popup async f s dash eglot lsp-vue company-lsp lsp-mode yapfify yaml-mode ws-butler winum which-key wgrep web-mode web-beautify vue-mode volatile-highlights uuidgen use-package unfill toc-org tagedit sql-indent spaceline smex smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-elixir neotree mwim move-text minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jinja2-mode ivy-hydra indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump define-word cython-mode csv-mode counsel-projectile column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bracketed-paste auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
  '(python-shell-virtualenv-path "/home/marcin/Projects/venv3")
@@ -399,6 +404,8 @@ you should place your code here."
               (define-key eglot-mode-map (kbd "C-c f") 'eglot-format)
               (define-key eglot-mode-map (kbd "C-c d") 'xref-find-definitions)
               ))
-
-
+  (with-eval-after-load 'org
+    (add-hook 'org-mode-hook (lambda()
+                               (org-defkey org-mode-map [(meta return)] 'org-meta-return)  ;; The actual fix
+                               )))
   (editorconfig-mode 1))
