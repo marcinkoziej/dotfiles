@@ -81,10 +81,18 @@ alias gshb="git show-branch"
 export ANSIBLE_NOCOWS=1
 
 env-dev() {
-    export RACK_ENV=development ORG_NAME="$1" THEME="$1"
+    local theme="$1"
+    case "$theme" in
+	    the-open)  theme=lumen;;
+    esac
+    export RACK_ENV=development ORG_NAME="$1" THEME="$theme"
 }
 
 env-test() {
+    local theme="$1"
+    case "$theme" in
+	    the-open)  theme=lumen;;
+    esac
     export RACK_ENV=test ORG_NAME="$1" THEME="$1"
 }
 
