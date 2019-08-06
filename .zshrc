@@ -1,5 +1,4 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
   export ZSH="/home/marcin/.oh-my-zsh"
@@ -54,13 +53,14 @@ source $ZSH/oh-my-zsh.sh
 
 # DFM radio
 alias dfm="(unset DISPLAY; vlc http://stereo.dfm.nu)"
+alias kapital="(unset DISPLAY; vlc https://radiokapitalpl.out.airtime.pro/radiokapitalpl_a)"
 
 # Notwork
 alias pingg="ping google.com"
 alias ping8="ping 8.8.8.8"
 
 # Docker
-alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+alias dip="docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 drm() { docker rm $(docker ps -q -a); }
 dri() { docker rmi $(docker images -q); }
 alias dkd="docker run -d -P"
@@ -93,7 +93,8 @@ env-test() {
     case "$theme" in
 	    the-open)  theme=lumen;;
     esac
-    export RACK_ENV=test ORG_NAME="$1" THEME="$1"
+    export RACK_ENV=test ORG_NAME="$1" THEME="$theme"
+    export SIDEKIQ_WORKERS=2
 }
 
 # Git
@@ -124,26 +125,21 @@ git-steal()
     git show $1:$2 > $2
 }
 
-nasz()
+if [[ -f ~/.zshrc.personal ]]; then
+    . ~/.zshrc.personal
+fi
+
+
+compresspdf()
 {
-    case $1 in
-        nip)
-            echo 5223026714
-        ;;
-        krs)
-            echo 0000552033
-            ;;
-        regon)
-            echo 361255246
-            ;;
-        telefon)
-            echo 0048222528144
-            ;;
-    esac
+
+
 }
 
 
 alias arm-objdump=/usr/local/mcuxpressoide-10.3.0_2200/ide/plugins/com.nxp.mcuxpresso.tools.linux_10.3.0.201811011841/tools/arm-none-eabi/bin/objdump
+
+alias ipy="python3 -m IPython"
 
 eval $(thefuck --alias)
 
@@ -151,3 +147,15 @@ ZSH_SYNTAX_HIGHLIGHTING=/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighti
 if [[ -e $ZSH_SYNTAX_HIGHLIGHTING ]]
    then source $ZSH_SYNTAX_HIGHLIGHTING
 fi
+
+alias kubectl-open='kubectl --kubeconfig=/home/marcin/.kube/k8s-1-14-1-do-4-ams3-1561631436143-kubeconfig.yaml'
+alias ran='rancher kubectl'
+
+# wholesome experience:
+alias please=sudo
+
+
+alias dco=docker-compose
+
+# opam configuration
+test -r /home/marcin/.opam/opam-init/init.zsh && . /home/marcin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

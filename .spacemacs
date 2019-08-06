@@ -32,6 +32,7 @@ values."
    dotspacemacs-configuration-layers
    '(
      python
+     clojure
      elixir
      ansible
      csv
@@ -63,6 +64,8 @@ values."
      better-defaults
      emoji
      koziej
+     elm
+     ocaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -74,6 +77,7 @@ values."
                                       lsp-vue
                                       company-lsp
                                       eglot
+                                      sql-indent
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -351,6 +355,7 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
  '(exec-path
    (quote
     ("/usr/local/heroku/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1@global/bin/" "/home/marcin/.rvm/rubies/ruby-2.3.1/bin/" "/home/marcin/bin/" "/usr/local/sbin/" "/usr/local/bin/" "/usr/sbin/" "/usr/bin/" "/sbin/" "/bin/" "/usr/games/" "/usr/local/games/" "/snap/bin/" "/home/marcin/.rvm/bin/" "/usr/lib/x86_64-linux-gnu/emacs/26.1/x86_64-linux-gnu/" "/usr/local/bin")))
@@ -364,11 +369,72 @@ you should place your code here."
  '(org-agenda-files (quote ("~/Desktop")))
  '(package-selected-packages
    (quote
-    (which-key web-mode vue-mode ssass-mode use-package toc-org sass-mode ruby-test-mode rubocop rspec-mode robe persp-mode paradox orgit org-pomodoro alert org-mime org-download live-py-mode link-hint hydra hy-mode hl-todo helm-projectile helm-make helm-descbinds git-timemachine git-link flycheck-mix eyebrowse expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-mc evil-matchit elixir-mode eglot flymake editorconfig dumb-jump define-word company-lsp company ace-window ace-link avy inf-ruby iedit smartparens flycheck helm helm-core yasnippet multiple-cursors lsp-mode ht magit transient git-commit with-editor async markdown-mode projectile org-plus-contrib js2-mode powerline dash yapfify yaml-mode ws-butler winum web-beautify vue-html-mode volatile-highlights uuidgen unfill tagedit sql-indent spinner spaceline smeargle slim-mode seq scss-mode rvm ruby-tools restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pkg-info pip-requirements pcre2el org-projectile org-present org-bullets open-junk-file ob-elixir neotree mwim move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lv lsp-vue lorem-ipsum log4e livid-mode linum-relative let-alist jsonrpc json-mode js2-refactor js-doc jinja2-mode indent-guide hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-mode-manager helm-gitignore helm-flx helm-css-scss helm-ag haml-mode google-translate golden-ratio gnuplot gntp gitconfig-mode gitattributes-mode git-messenger gh-md flycheck-pos-tip flycheck-credo flx-ido fill-column-indicator fancy-battery evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-numbers evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emoji-cheat-sheet-plus emmet-mode elisp-slime-nav edit-indirect diminish dash-functional cython-mode csv-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bind-key auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode aggressive-indent adaptive-wrap ace-jump-helm-line)))
+    (utop tuareg caml ocp-indent merlin helm-gtags ggtags flycheck-elm elm-mode reformatter highlight evil request pythonic simple-httpd clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a which-key web-mode vue-mode ssass-mode use-package toc-org sass-mode ruby-test-mode rubocop rspec-mode robe persp-mode paradox orgit org-pomodoro alert org-mime org-download live-py-mode link-hint hydra hy-mode hl-todo helm-projectile helm-make helm-descbinds git-timemachine git-link flycheck-mix eyebrowse expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-mc evil-matchit elixir-mode eglot flymake editorconfig dumb-jump define-word company-lsp company ace-window ace-link avy inf-ruby iedit smartparens flycheck helm helm-core yasnippet multiple-cursors lsp-mode ht magit transient git-commit with-editor async markdown-mode projectile org-plus-contrib js2-mode powerline dash yapfify yaml-mode ws-butler winum web-beautify vue-html-mode volatile-highlights uuidgen unfill tagedit sql-indent spinner spaceline smeargle slim-mode seq scss-mode rvm ruby-tools restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pkg-info pip-requirements pcre2el org-projectile org-present org-bullets open-junk-file ob-elixir neotree mwim move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lv lsp-vue lorem-ipsum log4e livid-mode linum-relative let-alist jsonrpc json-mode js2-refactor js-doc jinja2-mode indent-guide hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-mode-manager helm-gitignore helm-flx helm-css-scss helm-ag haml-mode google-translate golden-ratio gnuplot gntp gitconfig-mode gitattributes-mode git-messenger gh-md flycheck-pos-tip flycheck-credo flx-ido fill-column-indicator fancy-battery evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-numbers evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emoji-cheat-sheet-plus emmet-mode elisp-slime-nav edit-indirect diminish dash-functional cython-mode csv-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bind-key auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode aggressive-indent adaptive-wrap ace-jump-helm-line)))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
  '(python-shell-virtualenv-path "/home/marcin/Projects/venv3")
  '(python-shell-virtualenv-root "/home/marcin/Projects/venv3")
+ '(safe-local-variable-values
+   (quote
+    ((cljr-favor-prefix-notation . t)
+     (eval progn
+           (put
+            (quote defendpoint)
+            (quote clojure-doc-string-elt)
+            3)
+           (put
+            (quote defendpoint-async)
+            (quote clojure-doc-string-elt)
+            3)
+           (put
+            (quote api/defendpoint)
+            (quote clojure-doc-string-elt)
+            3)
+           (put
+            (quote api/defendpoint-async)
+            (quote clojure-doc-string-elt)
+            3)
+           (put
+            (quote defsetting)
+            (quote clojure-doc-string-elt)
+            2)
+           (put
+            (quote setting/defsetting)
+            (quote clojure-doc-string-elt)
+            2)
+           (put
+            (quote s/defn)
+            (quote clojure-doc-string-elt)
+            2)
+           (put
+            (quote p\.types/defprotocol+)
+            (quote clojure-doc-string-elt)
+            2)
+           (define-clojure-indent
+             (assert 1)
+             (ex-info 1)
+             (expect 0)
+             (match 1)
+             (merge-with 1)
+             (with-redefs-fn 1)
+             (p\.types/defprotocol+
+              (quote
+               (1
+                (:defn))))
+             (p\.types/def-abstract-type
+              (quote
+               (1
+                (:defn))))
+             (p\.types/deftype+
+              (quote
+               (2 nil nil
+                  (:defn))))
+             (p\.types/defrecord+
+              (quote
+               (2 nil nil
+                  (:defn))))))
+     (elixir-enable-compilation-checking . t)
+     (elixir-enable-compilation-checking))))
  '(standard-indent 2)
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)
@@ -411,4 +477,5 @@ you should place your code here."
   (add-hook 'markdown-mode-hook
             (lambda ()
               (local-set-key [(meta return)] 'markdown-insert-list-item)))
+
   (editorconfig-mode 1))

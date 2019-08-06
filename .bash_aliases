@@ -59,24 +59,7 @@ git-steal()
     git show $1:$2 > $2
 }
 
-nasz()
-{
-    case $1 in
-        nip)
-            echo 5223026714
-        ;;
-        krs)
-            echo 0000552033
-            ;;
-        regon)
-            echo 361255246
-            ;;
-        telefon)
-            echo 0048222528144
-            ;;
-    esac
-}
-
 
 alias arm-objdump=/usr/local/mcuxpressoide-10.3.0_2200/ide/plugins/com.nxp.mcuxpresso.tools.linux_10.3.0.201811011841/tools/arm-none-eabi/bin/objdump
+alias please=sudo
 
