@@ -26,7 +26,6 @@ ZSH_THEME="robbyrussell"
 plugins=(git ruby rvm mix colorize heroku) 
 
 source $ZSH/oh-my-zsh.sh
-source /etc/profile.d/rvm.sh
 
 # User configuration
 
