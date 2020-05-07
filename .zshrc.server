@@ -1,0 +1,106 @@
+# If you come from bash you might have to change your $PATH.
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="alanpeabody"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git colorize)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+
+# Notwork
+alias pingg="ping google.com"
+alias ping8="ping 8.8.8.8"
+
+# Docker
+alias dip="docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
+drm() { docker rm $(docker ps -q -a); }
+dri() { docker rmi $(docker images -q); }
+alias dkd="docker run -d -P"
+alias dki="docker run -t -i -P"
+db() { docker build -t="$1" .; }
+
+# Rancher
+alias rex="rancher exec -ti"
+alias rlog="rancher logs --tail=1000"
+
+alias pd=pushd
+alias gshb="git show-branch"
+
+export ANSIBLE_NOCOWS=1
+
+ZSH_SYNTAX_HIGHLIGHTING=/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -e $ZSH_SYNTAX_HIGHLIGHTING ]]
+   then source $ZSH_SYNTAX_HIGHLIGHTING
+fi
+
+# wholesome experience:
+alias please=sudo
+
+rconf() {
+    if [ "$1" = "-d" ]; then
+        shift
+        rio config rm configmap/$1
+        return
+    fi
+    if [ "$1" = "-c" ]; then
+        mode=create
+        shift
+    else
+        mode=update
+    fi
+    
+    if [ $# -lt 3 ]; then
+        echo 'rconf config-map key value'
+        exit 1;
+    fi
+
+    if [ $mode = "create" ]; then
+        echo -n $3 | rio config create -k $2 $1 -
+    elif [ $mode = 'update' ]; then 
+        echo -n $3 | rio config update -k $2 configmap/$1 -
+    fi
+}
