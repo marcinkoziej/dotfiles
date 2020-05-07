@@ -66,6 +66,7 @@ values."
      koziej
      elm
      ocaml
+     imenu-list
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -78,6 +79,7 @@ values."
                                       company-lsp
                                       eglot
                                       sql-indent
+                                      pipenv
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -304,7 +306,7 @@ values."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("ag" "pt" "grep" "ack")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -364,12 +366,13 @@ you should place your code here."
    "/home/marcin/Projects/open-speakout/node_modules/.bin/eslint")
  '(global-vi-tilde-fringe-mode nil)
  '(grep-command "grep --color -nH -r ")
+ '(imenu-list-minor-mode t)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(org-agenda-files (quote ("~/Desktop")))
  '(package-selected-packages
    (quote
-    (utop tuareg caml ocp-indent merlin helm-gtags ggtags flycheck-elm elm-mode reformatter highlight evil request pythonic simple-httpd clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a which-key web-mode vue-mode ssass-mode use-package toc-org sass-mode ruby-test-mode rubocop rspec-mode robe persp-mode paradox orgit org-pomodoro alert org-mime org-download live-py-mode link-hint hydra hy-mode hl-todo helm-projectile helm-make helm-descbinds git-timemachine git-link flycheck-mix eyebrowse expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-mc evil-matchit elixir-mode eglot flymake editorconfig dumb-jump define-word company-lsp company ace-window ace-link avy inf-ruby iedit smartparens flycheck helm helm-core yasnippet multiple-cursors lsp-mode ht magit transient git-commit with-editor async markdown-mode projectile org-plus-contrib js2-mode powerline dash yapfify yaml-mode ws-butler winum web-beautify vue-html-mode volatile-highlights uuidgen unfill tagedit sql-indent spinner spaceline smeargle slim-mode seq scss-mode rvm ruby-tools restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pkg-info pip-requirements pcre2el org-projectile org-present org-bullets open-junk-file ob-elixir neotree mwim move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lv lsp-vue lorem-ipsum log4e livid-mode linum-relative let-alist jsonrpc json-mode js2-refactor js-doc jinja2-mode indent-guide hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-mode-manager helm-gitignore helm-flx helm-css-scss helm-ag haml-mode google-translate golden-ratio gnuplot gntp gitconfig-mode gitattributes-mode git-messenger gh-md flycheck-pos-tip flycheck-credo flx-ido fill-column-indicator fancy-battery evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-numbers evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emoji-cheat-sheet-plus emmet-mode elisp-slime-nav edit-indirect diminish dash-functional cython-mode csv-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bind-key auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode aggressive-indent adaptive-wrap ace-jump-helm-line)))
+    (pipenv imenu-list sql-indent utop tuareg caml ocp-indent merlin helm-gtags ggtags flycheck-elm elm-mode reformatter highlight evil request pythonic simple-httpd clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a which-key web-mode vue-mode ssass-mode use-package toc-org sass-mode ruby-test-mode rubocop rspec-mode robe persp-mode paradox orgit org-pomodoro alert org-mime org-download live-py-mode link-hint hydra hy-mode hl-todo helm-projectile helm-make helm-descbinds git-timemachine git-link flycheck-mix eyebrowse expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-mc evil-matchit elixir-mode eglot flymake editorconfig dumb-jump define-word company-lsp company ace-window ace-link avy inf-ruby iedit smartparens flycheck helm helm-core yasnippet multiple-cursors lsp-mode ht magit transient git-commit with-editor async markdown-mode projectile org-plus-contrib js2-mode powerline dash yapfify yaml-mode ws-butler winum web-beautify vue-html-mode volatile-highlights uuidgen unfill tagedit spinner spaceline smeargle slim-mode seq scss-mode rvm ruby-tools restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pkg-info pip-requirements pcre2el org-projectile org-present org-bullets open-junk-file ob-elixir neotree mwim move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lv lsp-vue lorem-ipsum log4e livid-mode linum-relative let-alist jsonrpc json-mode js2-refactor js-doc jinja2-mode indent-guide hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-mode-manager helm-gitignore helm-flx helm-css-scss helm-ag haml-mode google-translate golden-ratio gnuplot gntp gitconfig-mode gitattributes-mode git-messenger gh-md flycheck-pos-tip flycheck-credo flx-ido fill-column-indicator fancy-battery evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-numbers evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emoji-cheat-sheet-plus emmet-mode elisp-slime-nav edit-indirect diminish dash-functional cython-mode csv-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bind-key auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode aggressive-indent adaptive-wrap ace-jump-helm-line)))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
  '(python-shell-virtualenv-path "/home/marcin/Projects/venv3")
@@ -435,6 +438,7 @@ you should place your code here."
                   (:defn))))))
      (elixir-enable-compilation-checking . t)
      (elixir-enable-compilation-checking))))
+ '(sql-mode-hook (quote (sqlind-minor-mode)))
  '(standard-indent 2)
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)
@@ -449,6 +453,7 @@ you should place your code here."
 
 (defun dotspacemacs/user-config ()
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode))
   (setq-default evil-escape-key-sequence "zz")
   (setq js2-mode-show-parse-errors nil)
   (setq js2-mode-show-strict-warnings nil)
@@ -470,6 +475,18 @@ you should place your code here."
               (define-key eglot-mode-map (kbd "C-c f") 'eglot-format)
               (define-key eglot-mode-map (kbd "C-c d") 'xref-find-definitions)
               ))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (add-to-list 'web-mode-engines-alist '("elixir" . "\\.leex\\'"))
+              ))
+
+  (add-to-list 'auto-mode-alist '("\\.re\\'" . tuareg-mode))
+  (add-hook 'tuareg-mode-hook
+            (lambda()
+              (when (functionp 'prettify-symbols-mode)
+                (prettify-symbols-mode))
+              ))
+
   (with-eval-after-load 'org
     (add-hook 'org-mode-hook (lambda()
                                (org-defkey org-mode-map [(meta return)] 'org-meta-return)  ;; The actual fix
@@ -477,5 +494,5 @@ you should place your code here."
   (add-hook 'markdown-mode-hook
             (lambda ()
               (local-set-key [(meta return)] 'markdown-insert-list-item)))
-
+  (setq helm-buffer-max-length 90)
   (editorconfig-mode 1))
