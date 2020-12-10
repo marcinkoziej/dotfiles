@@ -129,6 +129,20 @@ if [[ -f ~/.zshrc.personal ]]; then
     . ~/.zshrc.personal
 fi
 
+mysql-cheatsheet()
+{
+    NAME=${1:-foo}
+    PASS=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w10 | head -n1)
+    cat <<END
+CREATE DATABASE ${NAME} CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER '${NAME}'@'%' IDENTIFIED BY '${PASS}';
+GRANT ALL PRIVILEGES ON ${NAME}.* TO '${NAME}'@'%';
+
+mysql://${NAME}:${PASS}@localhost/${NAME}
+END
+
+}
+
 
 compresspdf()
 {
@@ -142,6 +156,8 @@ alias arm-objdump=/usr/local/mcuxpressoide-10.3.0_2200/ide/plugins/com.nxp.mcuxp
 alias ipy="python3 -m IPython"
 
 eval $(thefuck --alias)
+eval "$(direnv hook zsh)"
+
 
 ZSH_SYNTAX_HIGHLIGHTING=/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if [[ -e $ZSH_SYNTAX_HIGHLIGHTING ]]
@@ -156,6 +172,9 @@ alias please=sudo
 
 
 alias dco=docker-compose
+
+alias playbook=ansible-playbook
+alias galaxy=ansible-galaxy
 
 # opam configuration
 test -r /home/marcin/.opam/opam-init/init.zsh && . /home/marcin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
