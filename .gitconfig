@@ -15,3 +15,5 @@
 	emerge = mergetool --tool=\"emerge -mm\"
   featlog = "!f(){ git log -p $1 --not master;}; f"
 
+[github]
+	user = marcin@cahoots.pl
