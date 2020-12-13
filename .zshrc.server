@@ -23,9 +23,6 @@ alias dkd="docker run -d -P"
 alias dki="docker run -t -i -P"
 db() { docker build -t="$1" .; }
 
-# Rancher
-alias rex="rancher exec -ti"
-alias rlog="rancher logs --tail=1000"
 
 alias pd=pushd
 alias gshb="git show-branch"
@@ -45,32 +42,12 @@ alias scls="systemctl list-unit-files"
 alias scst="systemctl status"
 alias ju="journalctl -u"
 
-rconf() {
-    if [ "$1" = "-d" ]; then
-        shift
-        rio config rm configmap/$1
-        return
-    fi
-    if [ "$1" = "-c" ]; then
-        mode=create
-        shift
-    else
-        mode=update
-    fi
-    
-    if [ $# -lt 3 ]; then
-        echo 'rconf config-map key value'
-        exit 1;
-    fi
-
-    if [ $mode = "create" ]; then
-        echo -n $3 | rio config create -k $2 $1 -
-    elif [ $mode = 'update' ]; then 
-        echo -n $3 | rio config update -k $2 configmap/$1 -
-    fi
-}
-
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 export PS1="%(?:%{[01;37m%}➜ :%{[01;31m%}➜ ) %{%}%c%{[00m%} "
 
+case "$TERM" in
+    "dumb")
+        export PS1="> "
+        ;;
+esac
