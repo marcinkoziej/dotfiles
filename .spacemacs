@@ -32,6 +32,9 @@ values."
    dotspacemacs-configuration-layers
    '(
      ivy
+     (treemacs
+      :variables treemacs-use-follow-mode 'tag
+      )
      go
      python
      clojure
@@ -44,7 +47,8 @@ values."
      yaml
      html
      tide
-     (javascript :variables javascript-backend :tide)
+     ;;(javascript :variables javascript-backend :tide)
+     (javascript :variables flycheck-checker javascript-standard)
      (typescript :variables typescript-backend :tide)
      graphql
      react
@@ -54,7 +58,8 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
+     helpful
+     auto-completion
      ;; better-defaults
      emacs-lisp
      git
@@ -154,6 +159,8 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
+                                (agenda . 5)
+                                (todos . 5)
                                 (projects . 7))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
@@ -256,7 +263,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -326,7 +333,9 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
+   ;; theme for mode line
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
    ))
 
 (defun dotspacemacs/user-init ()
@@ -357,146 +366,19 @@ you should place your code here."
   (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 
   (global-git-commit-mode t)
-
-  (require 'tramp)
-  )
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
- '(exec-path
-   (quote
-    ("/usr/local/heroku/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1@global/bin/" "/home/marcin/.rvm/rubies/ruby-2.3.1/bin/" "/home/marcin/bin/" "/usr/local/sbin/" "/usr/local/bin/" "/usr/sbin/" "/usr/bin/" "/sbin/" "/bin/" "/usr/games/" "/usr/local/games/" "/snap/bin/" "/home/marcin/.rvm/bin/" "/usr/lib/x86_64-linux-gnu/emacs/26.1/x86_64-linux-gnu/" "/usr/local/bin")))
- '(flycheck-emacs-lisp-load-path (quote inherit))
- '(flycheck-javascript-eslint-executable
-   "/home/marcin/Projects/open-speakout/node_modules/.bin/eslint")
- '(global-vi-tilde-fringe-mode nil)
- '(grep-command "grep --color -nH -r ")
- '(imenu-list-minor-mode t)
- '(js-indent-level 2)
- '(js2-basic-offset 2)
- '(org-agenda-files (quote ("~/Desktop")))
- '(package-selected-packages
-   (quote
-    (magit-popup skewer-mode json-snatcher json-reformat parent-mode gitignore-mode pos-tip flx anzu goto-chg undo-tree epl bind-map packed f s popup alchemist xref eldoc project org-category-capture writeroom-mode visual-fill-column pipenv imenu-list sql-indent utop tuareg caml ocp-indent merlin helm-gtags ggtags flycheck-elm elm-mode reformatter highlight evil request pythonic simple-httpd clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a which-key web-mode vue-mode ssass-mode use-package toc-org sass-mode ruby-test-mode rubocop rspec-mode robe persp-mode paradox orgit org-pomodoro alert org-mime org-download live-py-mode link-hint hydra hy-mode hl-todo helm-projectile helm-make helm-descbinds git-timemachine git-link flycheck-mix eyebrowse expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-mc evil-matchit elixir-mode eglot flymake editorconfig dumb-jump define-word company-lsp company ace-window ace-link avy inf-ruby iedit smartparens flycheck helm helm-core multiple-cursors lsp-mode ht magit transient git-commit with-editor async markdown-mode projectile org-plus-contrib js2-mode powerline dash yapfify yaml-mode ws-butler winum web-beautify vue-html-mode volatile-highlights uuidgen unfill tagedit spinner spaceline smeargle slim-mode seq scss-mode rvm ruby-tools restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pkg-info pip-requirements pcre2el org-projectile org-present org-bullets open-junk-file ob-elixir neotree mwim move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lv lsp-vue lorem-ipsum log4e livid-mode linum-relative let-alist jsonrpc json-mode js2-refactor js-doc jinja2-mode indent-guide hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-mode-manager helm-gitignore helm-flx helm-css-scss helm-ag haml-mode google-translate golden-ratio gnuplot gntp gitconfig-mode gitattributes-mode git-messenger gh-md flycheck-pos-tip flycheck-credo flx-ido fill-column-indicator fancy-battery evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-numbers evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emoji-cheat-sheet-plus emmet-mode elisp-slime-nav edit-indirect diminish dash-functional cython-mode csv-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bind-key auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode aggressive-indent adaptive-wrap ace-jump-helm-line)))
- '(paradox-automatically-star t)
- '(paradox-github-token t)
- '(python-shell-virtualenv-path "/home/marcin/Projects/venv3")
- '(python-shell-virtualenv-root "/home/marcin/Projects/venv3")
- '(safe-local-variable-values
-   (quote
-    ((cljr-favor-prefix-notation . t)
-     (eval progn
-           (put
-            (quote defendpoint)
-            (quote clojure-doc-string-elt)
-            3)
-           (put
-            (quote defendpoint-async)
-            (quote clojure-doc-string-elt)
-            3)
-           (put
-            (quote api/defendpoint)
-            (quote clojure-doc-string-elt)
-            3)
-           (put
-            (quote api/defendpoint-async)
-            (quote clojure-doc-string-elt)
-            3)
-           (put
-            (quote defsetting)
-            (quote clojure-doc-string-elt)
-            2)
-           (put
-            (quote setting/defsetting)
-            (quote clojure-doc-string-elt)
-            2)
-           (put
-            (quote s/defn)
-            (quote clojure-doc-string-elt)
-            2)
-           (put
-            (quote p\.types/defprotocol+)
-            (quote clojure-doc-string-elt)
-            2)
-           (define-clojure-indent
-             (assert 1)
-             (ex-info 1)
-             (expect 0)
-             (match 1)
-             (merge-with 1)
-             (with-redefs-fn 1)
-             (p\.types/defprotocol+
-              (quote
-               (1
-                (:defn))))
-             (p\.types/def-abstract-type
-              (quote
-               (1
-                (:defn))))
-             (p\.types/deftype+
-              (quote
-               (2 nil nil
-                  (:defn))))
-             (p\.types/defrecord+
-              (quote
-               (2 nil nil
-                  (:defn))))))
-     (elixir-enable-compilation-checking . t)
-     (elixir-enable-compilation-checking))))
- '(sql-mode-hook (quote (sqlind-minor-mode)))
- '(standard-indent 2)
- '(web-mode-code-indent-offset 2)
- '(web-mode-css-indent-offset 2)
- '(web-mode-indent-offset 2)
- '(web-mode-markup-indent-offset 2))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-(defun dotspacemacs/user-config ()
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode))
   (setq-default evil-escape-key-sequence "zz")
-  (setq js2-mode-show-parse-errors nil)
-  (setq js2-mode-show-strict-warnings nil)
-  (setq flycheck-disabled-checkers '(javascript-jshint))
-  (setq flycheck-checkers '(javascript-eslint))
-
-  ;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
-  ;; (setq-default flycheck-disabled-checkers
-                ;; (append flycheck-disabled-checkers
-                        ;; '(javascript-jshint)))
-  ;; end FlyCheck
-
-  ;; (add-hook 'elixir-mode-hook
-  ;;           (lambda ()
-  ;;             (require 'eglot)
-  ;;             (add-to-list 'eglot-server-programs '(elixir-mode . ("/home/marcin/share/elixir-ls/language_server.sh")))
-  ;;             (define-key eglot-mode-map (kbd "C-c h") 'eglot-help-at-point)
-  ;;             (define-key eglot-mode-map (kbd "C-c f") 'eglot-format)
-  ;;             (define-key eglot-mode-map (kbd "C-c d") 'xref-find-definitions)
-  ;;             ))
 
   (add-hook 'web-mode-hook
             (lambda ()
-              (add-to-list 'web-mode-engines-alist '("elixir" . "\\.leex\\'"))
-              ))
+              (add-to-list 'web-mode-engines-alist '("elixir" . "\\.leex\\'"))))
 
   (add-to-list 'auto-mode-alist '("\\.re\\'" . tuareg-mode))
+  ;; OCaml
   (add-hook 'tuareg-mode-hook
             (lambda()
               (when (functionp 'prettify-symbols-mode)
-                (prettify-symbols-mode))
-              ))
+                (prettify-symbols-mode))))
 
   (with-eval-after-load 'org
     (add-hook 'org-mode-hook (lambda()
@@ -505,8 +387,8 @@ you should place your code here."
   (add-hook 'markdown-mode-hook
             (lambda ()
               (local-set-key [(meta return)] 'markdown-insert-list-item)))
-  (setq helm-buffer-max-length 90)
   (editorconfig-mode 1))
+
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use
@@ -517,21 +399,10 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(auto-save-file-name-transforms '((".*" "/home/marcin/.emacs.d/private/backups" t)))
- '(backup-directory-alist '((".*" . "/home/marcin/.emacs.d/private/backups")))
- '(custom-safe-themes
-   '("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
- '(evil-want-Y-yank-to-eol nil)
  '(exec-path
    '("/usr/local/heroku/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1@global/bin/" "/home/marcin/.rvm/rubies/ruby-2.3.1/bin/" "/home/marcin/bin/" "/usr/local/sbin/" "/usr/local/bin/" "/usr/sbin/" "/usr/bin/" "/sbin/" "/bin/" "/usr/games/" "/usr/local/games/" "/snap/bin/" "/home/marcin/.rvm/bin/" "/usr/lib/x86_64-linux-gnu/emacs/26.1/x86_64-linux-gnu/" "/usr/local/bin"))
  '(flycheck-emacs-lisp-load-path 'inherit)
- '(flycheck-javascript-eslint-executable
-   "/home/marcin/Projects/open-speakout/node_modules/.bin/eslint")
- '(gc-cons-threshold 500000000)
  '(global-vi-tilde-fringe-mode nil)
- '(grep-command "grep --color -nH -r ")
  '(hl-todo-keyword-faces
    '(("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
@@ -551,47 +422,12 @@ This function is called at the very end of Spacemacs initialization."
  '(imenu-list-minor-mode t)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
- '(make-backup-files t)
+ '(js2-strict-missing-semi-warning nil)
  '(org-agenda-files '("~/Desktop"))
  '(package-selected-packages
-   '(forge ghub magit-popup skewer-mode json-snatcher json-reformat parent-mode gitignore-mode pos-tip flx anzu goto-chg undo-tree epl bind-map packed f s popup alchemist xref eldoc project org-category-capture writeroom-mode visual-fill-column pipenv imenu-list sql-indent utop tuareg caml ocp-indent merlin helm-gtags ggtags flycheck-elm elm-mode reformatter highlight evil request pythonic simple-httpd clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a which-key web-mode vue-mode ssass-mode use-package toc-org sass-mode ruby-test-mode rubocop rspec-mode robe persp-mode paradox orgit org-pomodoro alert org-mime org-download live-py-mode link-hint hydra hy-mode hl-todo helm-projectile helm-make helm-descbinds git-timemachine git-link flycheck-mix eyebrowse expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-mc evil-matchit elixir-mode eglot flymake editorconfig dumb-jump define-word company-lsp company ace-window ace-link avy inf-ruby iedit smartparens flycheck helm helm-core multiple-cursors lsp-mode ht magit transient git-commit with-editor async markdown-mode projectile org-plus-contrib js2-mode powerline dash yapfify yaml-mode ws-butler winum web-beautify vue-html-mode volatile-highlights uuidgen unfill tagedit spinner spaceline smeargle slim-mode seq scss-mode rvm ruby-tools restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pkg-info pip-requirements pcre2el org-projectile org-present org-bullets open-junk-file ob-elixir neotree mwim move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lv lsp-vue lorem-ipsum log4e livid-mode linum-relative let-alist jsonrpc json-mode js2-refactor js-doc jinja2-mode indent-guide hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-mode-manager helm-gitignore helm-flx helm-css-scss helm-ag haml-mode google-translate golden-ratio gnuplot gntp gitconfig-mode gitattributes-mode git-messenger gh-md flycheck-pos-tip flycheck-credo flx-ido fill-column-indicator fancy-battery evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-numbers evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emoji-cheat-sheet-plus emmet-mode elisp-slime-nav edit-indirect diminish dash-functional cython-mode csv-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler bind-key auto-highlight-symbol auto-compile ansible-doc ansible anaconda-mode aggressive-indent adaptive-wrap ace-jump-helm-line))
+   '(counsel-tramp helpful elisp-refs yaml-mode ws-butler writeroom-mode visual-fill-column web-mode toc-org sql-indent spaceline powerline rvm ruby-test-mode robe restart-emacs request popwin pipenv pyvenv persp-mode org-mime org-download mmm-mode link-hint js2-mode hungry-delete highlight-parentheses highlight-indentation gnuplot git-messenger git-link forge ghub flycheck eyebrowse evil-nerd-commenter evil-matchit evil-magit magit git-commit with-editor eglot eldoc xref editorconfig dumb-jump csv-mode cider seq clojure-mode parseclj a auto-highlight-symbol auto-compile packed ansible anaconda-mode company elixir-mode lsp-mode projectile ht helm helm-core iedit anzu smartparens transient multiple-cursors json-snatcher markdown-mode which-key use-package evil goto-chg hydra org-plus-contrib yasnippet-snippets yapfify winum wgrep web-beautify vue-mode volatile-highlights uuidgen utop unfill undo-tree tuareg treepy treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil tide tagedit symon symbol-overlay string-inflection sphinx-doc spaceline-all-the-icons smex smeargle slim-mode sesman seeing-is-believing scss-mode sass-mode ruby-tools ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode rjsx-mode rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters queue pytest pyenv-mode py-isort pug-mode project prettier-js pippel pip-requirements pcre2el password-generator parseedn paradox overseer orgit org-superstar org-rich-yank org-projectile org-present org-pomodoro org-cliplink org-brain open-junk-file ocp-indent ocamlformat ob-elixir nodejs-repl nameless mwim move-text minitest merlin-eldoc markdown-toc magit-svn magit-section magit-gitflow macrostep lv lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-ivy lorem-ipsum livid-mode live-py-mode json-navigator json-mode js2-refactor js-doc jinja2-mode ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy indent-guide importmagic impatient-mode hybrid-mode hl-todo highlight-numbers helm-make graphql-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine gh-md fuzzy font-lock+ flymake flycheck-pos-tip flycheck-package flycheck-ocaml flycheck-elsa flycheck-elm flycheck-credo flx-ido fancy-battery expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-cleverparens evil-args evil-anzu emr emojify emoji-cheat-sheet-plus emmet-mode elm-test-runner elm-mode elisp-slime-nav dune dotenv-mode diminish devdocs define-word dap-mode cython-mode counsel-projectile counsel-css company-web company-lsp company-go company-emoji company-ansible company-anaconda column-enforce-mode color-identifiers-mode closql clojure-snippets clean-aindent-mode cider-eval-sexp-fu chruby centered-cursor-mode bundler blacken bind-key auto-yasnippet async ansible-doc alchemist aggressive-indent ace-link ac-ispell))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
- '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
- '(python-shell-virtualenv-path "/home/marcin/Projects/venv3")
- '(python-shell-virtualenv-root "/home/marcin/Projects/venv3")
- '(safe-local-variable-values
-   '((cljr-favor-prefix-notation . t)
-     (eval progn
-           (put 'defendpoint 'clojure-doc-string-elt 3)
-           (put 'defendpoint-async 'clojure-doc-string-elt 3)
-           (put 'api/defendpoint 'clojure-doc-string-elt 3)
-           (put 'api/defendpoint-async 'clojure-doc-string-elt 3)
-           (put 'defsetting 'clojure-doc-string-elt 2)
-           (put 'setting/defsetting 'clojure-doc-string-elt 2)
-           (put 's/defn 'clojure-doc-string-elt 2)
-           (put 'p\.types/defprotocol+ 'clojure-doc-string-elt 2)
-           (define-clojure-indent
-             (assert 1)
-             (ex-info 1)
-             (expect 0)
-             (match 1)
-             (merge-with 1)
-             (with-redefs-fn 1)
-             (p\.types/defprotocol+
-              '(1
-                (:defn)))
-             (p\.types/def-abstract-type
-              '(1
-                (:defn)))
-             (p\.types/deftype+
-              '(2 nil nil
-                  (:defn)))
-             (p\.types/defrecord+
-              '(2 nil nil
-                  (:defn)))))
-     (elixir-enable-compilation-checking . t)
-     (elixir-enable-compilation-checking)))
  '(sql-mode-hook '(sqlind-minor-mode))
  '(standard-indent 2)
  '(typescript-indent-level 2)
