@@ -150,6 +150,12 @@ compresspdf()
 
 }
 
+is-done()
+{
+  msg=$(if [[ $? -ne 0 ]]; then echo "Failed"; else echo "Done!"; fi)
+  notify-send "Finished job" $msg
+}
+
 
 alias arm-objdump=/usr/local/mcuxpressoide-10.3.0_2200/ide/plugins/com.nxp.mcuxpresso.tools.linux_10.3.0.201811011841/tools/arm-none-eabi/bin/objdump
 
@@ -172,9 +178,20 @@ alias please=sudo
 
 
 alias dco=docker-compose
+alias ov=oni2
 
 alias playbook=ansible-playbook
 alias galaxy=ansible-galaxy
+alias kr='kratos -e http://kratos:4434'
+
 
 # opam configuration
 test -r /home/marcin/.opam/opam-init/init.zsh && . /home/marcin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# vivid https://github.com/sharkdp/vivid
+export LS_COLORS=$(vivid -m 24-bit generate ayu)
+# export LS_COLORS=$(vivid -m 8-bit generate ayu)
+
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
