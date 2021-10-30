@@ -17,3 +17,11 @@
 
 [github]
 	user = marcin@cahoots.pl
+[gitlab "https://gitlab.wemove.eu/api/v4"]
+	user = marcin@cahoots.pl
+[gitlab "gitlab.wemove.eu/api/v4"]
+	user = marcin@cahoots.pl
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
