@@ -37,6 +37,7 @@ values."
       )
      go
      python
+     reasonml
      clojure
      (elixir :variables elixir-backend 'alchemist)
      ansible
@@ -48,8 +49,8 @@ values."
      html
      tide
      ;;(javascript :variables javascript-backend :tide)
-     (javascript :variables flycheck-checker javascript-standard)
-     (typescript :variables typescript-backend :tide)
+     (javascript :variables flycheck-checker 'javascript-standard)
+     (typescript :variables typescript-backend 'tide)
      graphql
      react
      ;; ivy
@@ -86,15 +87,12 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       editorconfig
-                                      vue-mode
-                                      lsp-vue
                                       company-lsp
                                       eglot
                                       sql-indent
                                       pipenv
                                       writeroom-mode
                                       alchemist
-                                      flycheck-mix
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -263,7 +261,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -289,6 +287,8 @@ values."
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
+   ;; per https://emacs.stackexchange.com/questions/64826/how-can-i-stop-my-scrollbar-bouncing-into-and-out-of-existence
+   dotspacemacs-scroll-bar-while-scrolling nil
    ;; Control line numbers activation.
    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
    ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
@@ -365,7 +365,6 @@ you should place your code here."
   (define-key evil-visual-state-map "j" 'evil-next-visual-line)
   (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 
-  (global-git-commit-mode t)
   (add-to-list 'auto-mode-alist '("\\.leex\\'" . web-mode))
   (setq-default evil-escape-key-sequence "zz")
 
@@ -387,21 +386,34 @@ you should place your code here."
   (add-hook 'markdown-mode-hook
             (lambda ()
               (local-set-key [(meta return)] 'markdown-insert-list-item)))
-  (editorconfig-mode 1))
+  (editorconfig-mode 1)
+  (require 'opam-user-setup "~/.emacs.d/private/opam-user-setup.el")
 
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
+  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(create-lockfiles nil)
  '(exec-path
    '("/usr/local/heroku/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1@global/bin/" "/home/marcin/.rvm/rubies/ruby-2.3.1/bin/" "/home/marcin/bin/" "/usr/local/sbin/" "/usr/local/bin/" "/usr/sbin/" "/usr/bin/" "/sbin/" "/bin/" "/usr/games/" "/usr/local/games/" "/snap/bin/" "/home/marcin/.rvm/bin/" "/usr/lib/x86_64-linux-gnu/emacs/26.1/x86_64-linux-gnu/" "/usr/local/bin"))
  '(flycheck-emacs-lisp-load-path 'inherit)
+ '(forge-alist
+   '(("github.com" "api.github.com" "github.com" forge-github-repository)
+     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
+     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
+     ("framagit.org" "framagit.org/api/v4" "framagit.org" forge-gitlab-repository)
+     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org" forge-gitea-repository)
+     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org" forge-gogs-repository)
+     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org" forge-bitbucket-repository)
+     ("git.savannah.gnu.org" nil "git.savannah.gnu.org" forge-cgit**-repository)
+     ("git.kernel.org" nil "git.kernel.org" forge-cgit-repository)
+     ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
+     ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
+     ("git.sr.ht" nil "git.sr.ht" forge-srht-repository)
+     ("gitlab.wemove.eu:2222" "gitlab.wemove.eu/api/v4" "gitlab.wemove.eu" forge-gitlab-repository)))
  '(global-vi-tilde-fringe-mode nil)
  '(hl-todo-keyword-faces
    '(("TODO" . "#dc752f")
@@ -419,18 +431,85 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
- '(imenu-list-minor-mode t)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(js2-strict-missing-semi-warning nil)
  '(org-agenda-files '("~/Desktop"))
  '(package-selected-packages
-   '(counsel-tramp helpful elisp-refs yaml-mode ws-butler writeroom-mode visual-fill-column web-mode toc-org sql-indent spaceline powerline rvm ruby-test-mode robe restart-emacs request popwin pipenv pyvenv persp-mode org-mime org-download mmm-mode link-hint js2-mode hungry-delete highlight-parentheses highlight-indentation gnuplot git-messenger git-link forge ghub flycheck eyebrowse evil-nerd-commenter evil-matchit evil-magit magit git-commit with-editor eglot eldoc xref editorconfig dumb-jump csv-mode cider seq clojure-mode parseclj a auto-highlight-symbol auto-compile packed ansible anaconda-mode company elixir-mode lsp-mode projectile ht helm helm-core iedit anzu smartparens transient multiple-cursors json-snatcher markdown-mode which-key use-package evil goto-chg hydra org-plus-contrib yasnippet-snippets yapfify winum wgrep web-beautify vue-mode volatile-highlights uuidgen utop unfill undo-tree tuareg treepy treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil tide tagedit symon symbol-overlay string-inflection sphinx-doc spaceline-all-the-icons smex smeargle slim-mode sesman seeing-is-believing scss-mode sass-mode ruby-tools ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode rjsx-mode rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters queue pytest pyenv-mode py-isort pug-mode project prettier-js pippel pip-requirements pcre2el password-generator parseedn paradox overseer orgit org-superstar org-rich-yank org-projectile org-present org-pomodoro org-cliplink org-brain open-junk-file ocp-indent ocamlformat ob-elixir nodejs-repl nameless mwim move-text minitest merlin-eldoc markdown-toc magit-svn magit-section magit-gitflow macrostep lv lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-ivy lorem-ipsum livid-mode live-py-mode json-navigator json-mode js2-refactor js-doc jinja2-mode ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy indent-guide importmagic impatient-mode hybrid-mode hl-todo highlight-numbers helm-make graphql-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine gh-md fuzzy font-lock+ flymake flycheck-pos-tip flycheck-package flycheck-ocaml flycheck-elsa flycheck-elm flycheck-credo flx-ido fancy-battery expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-cleverparens evil-args evil-anzu emr emojify emoji-cheat-sheet-plus emmet-mode elm-test-runner elm-mode elisp-slime-nav dune dotenv-mode diminish devdocs define-word dap-mode cython-mode counsel-projectile counsel-css company-web company-lsp company-go company-emoji company-ansible company-anaconda column-enforce-mode color-identifiers-mode closql clojure-snippets clean-aindent-mode cider-eval-sexp-fu chruby centered-cursor-mode bundler blacken bind-key auto-yasnippet async ansible-doc alchemist aggressive-indent ace-link ac-ispell))
+   '(reason-mode counsel-tramp helpful elisp-refs yaml-mode ws-butler writeroom-mode visual-fill-column web-mode toc-org sql-indent spaceline powerline rvm ruby-test-mode robe restart-emacs request popwin pipenv pyvenv persp-mode org-mime org-download mmm-mode link-hint js2-mode hungry-delete highlight-parentheses highlight-indentation gnuplot git-messenger git-link forge ghub flycheck eyebrowse evil-nerd-commenter evil-matchit evil-magit magit git-commit with-editor eglot eldoc xref editorconfig dumb-jump csv-mode cider seq clojure-mode parseclj a auto-highlight-symbol auto-compile packed ansible anaconda-mode company elixir-mode lsp-mode projectile ht helm helm-core iedit anzu smartparens transient multiple-cursors json-snatcher markdown-mode which-key use-package evil goto-chg hydra org-plus-contrib yasnippet-snippets yapfify winum wgrep web-beautify vue-mode volatile-highlights uuidgen utop unfill undo-tree tuareg treepy treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil tide tagedit symon symbol-overlay string-inflection sphinx-doc spaceline-all-the-icons smex smeargle slim-mode sesman seeing-is-believing scss-mode sass-mode ruby-tools ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode rjsx-mode rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters queue pytest pyenv-mode py-isort pug-mode project prettier-js pippel pip-requirements pcre2el password-generator parseedn paradox overseer orgit org-superstar org-rich-yank org-projectile org-present org-pomodoro org-cliplink org-brain open-junk-file ocp-indent ocamlformat ob-elixir nodejs-repl nameless mwim move-text minitest merlin-eldoc markdown-toc magit-svn magit-section magit-gitflow macrostep lv lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-ivy lorem-ipsum livid-mode live-py-mode json-navigator json-mode js2-refactor js-doc jinja2-mode ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy indent-guide importmagic impatient-mode hybrid-mode hl-todo highlight-numbers helm-make graphql-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine gh-md fuzzy font-lock+ flymake flycheck-pos-tip flycheck-package flycheck-ocaml flycheck-elsa flycheck-elm flycheck-credo flx-ido fancy-battery expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-cleverparens evil-args evil-anzu emr emojify emoji-cheat-sheet-plus emmet-mode elm-test-runner elm-mode elisp-slime-nav dune dotenv-mode diminish devdocs define-word dap-mode cython-mode counsel-projectile counsel-css company-web company-lsp company-go company-emoji company-ansible company-anaconda column-enforce-mode color-identifiers-mode closql clojure-snippets clean-aindent-mode cider-eval-sexp-fu chruby centered-cursor-mode bundler blacken bind-key auto-yasnippet async ansible-doc alchemist aggressive-indent ace-link ac-ispell))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
- '(sql-mode-hook '(sqlind-minor-mode))
+ '(sql-mode-hook '(sqlind-minor-mode) t)
  '(standard-indent 2)
  '(typescript-indent-level 2)
+ '(warning-suppress-types '((comp)))
+ '(web-mode-code-indent-offset 2)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-indent-offset 2)
+ '(web-mode-markup-indent-offset 2))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(create-lockfiles nil)
+ '(exec-path
+   '("/usr/local/heroku/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1@global/bin/" "/home/marcin/.rvm/rubies/ruby-2.3.1/bin/" "/home/marcin/bin/" "/usr/local/sbin/" "/usr/local/bin/" "/usr/sbin/" "/usr/bin/" "/sbin/" "/bin/" "/usr/games/" "/usr/local/games/" "/snap/bin/" "/home/marcin/.rvm/bin/" "/usr/lib/x86_64-linux-gnu/emacs/26.1/x86_64-linux-gnu/" "/usr/local/bin"))
+ '(flycheck-emacs-lisp-load-path 'inherit)
+ '(forge-alist
+   '(("github.com" "api.github.com" "github.com" forge-github-repository)
+     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
+     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
+     ("framagit.org" "framagit.org/api/v4" "framagit.org" forge-gitlab-repository)
+     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org" forge-gitea-repository)
+     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org" forge-gogs-repository)
+     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org" forge-bitbucket-repository)
+     ("git.savannah.gnu.org" nil "git.savannah.gnu.org" forge-cgit**-repository)
+     ("git.kernel.org" nil "git.kernel.org" forge-cgit-repository)
+     ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
+     ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
+     ("git.sr.ht" nil "git.sr.ht" forge-srht-repository)
+     ("gitlab.wemove.eu:2222" "gitlab.wemove.eu/api/v4" "gitlab.wemove.eu" forge-gitlab-repository)))
+ '(global-vi-tilde-fringe-mode nil)
+ '(hl-todo-keyword-faces
+   '(("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#dc752f")
+     ("\\?\\?\\?+" . "#dc752f")))
+ '(js-indent-level 2)
+ '(js2-basic-offset 2)
+ '(js2-strict-missing-semi-warning nil)
+ '(org-agenda-files '("~/Desktop"))
+ '(package-selected-packages
+   '(reason-mode counsel-tramp helpful elisp-refs yaml-mode ws-butler writeroom-mode visual-fill-column web-mode toc-org sql-indent spaceline powerline rvm ruby-test-mode robe restart-emacs request popwin pipenv pyvenv persp-mode org-mime org-download mmm-mode link-hint js2-mode hungry-delete highlight-parentheses highlight-indentation gnuplot git-messenger git-link forge ghub flycheck eyebrowse evil-nerd-commenter evil-matchit evil-magit magit git-commit with-editor eglot eldoc xref editorconfig dumb-jump csv-mode cider seq clojure-mode parseclj a auto-highlight-symbol auto-compile packed ansible anaconda-mode company elixir-mode lsp-mode projectile ht helm helm-core iedit anzu smartparens transient multiple-cursors json-snatcher markdown-mode which-key use-package evil goto-chg hydra org-plus-contrib yasnippet-snippets yapfify winum wgrep web-beautify vue-mode volatile-highlights uuidgen utop unfill undo-tree tuareg treepy treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil tide tagedit symon symbol-overlay string-inflection sphinx-doc spaceline-all-the-icons smex smeargle slim-mode sesman seeing-is-believing scss-mode sass-mode ruby-tools ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode rjsx-mode rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters queue pytest pyenv-mode py-isort pug-mode project prettier-js pippel pip-requirements pcre2el password-generator parseedn paradox overseer orgit org-superstar org-rich-yank org-projectile org-present org-pomodoro org-cliplink org-brain open-junk-file ocp-indent ocamlformat ob-elixir nodejs-repl nameless mwim move-text minitest merlin-eldoc markdown-toc magit-svn magit-section magit-gitflow macrostep lv lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-ivy lorem-ipsum livid-mode live-py-mode json-navigator json-mode js2-refactor js-doc jinja2-mode ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy indent-guide importmagic impatient-mode hybrid-mode hl-todo highlight-numbers helm-make graphql-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine gh-md fuzzy font-lock+ flymake flycheck-pos-tip flycheck-package flycheck-ocaml flycheck-elsa flycheck-elm flycheck-credo flx-ido fancy-battery expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-cleverparens evil-args evil-anzu emr emojify emoji-cheat-sheet-plus emmet-mode elm-test-runner elm-mode elisp-slime-nav dune dotenv-mode diminish devdocs define-word dap-mode cython-mode counsel-projectile counsel-css company-web company-lsp company-go company-emoji company-ansible company-anaconda column-enforce-mode color-identifiers-mode closql clojure-snippets clean-aindent-mode cider-eval-sexp-fu chruby centered-cursor-mode bundler blacken bind-key auto-yasnippet async ansible-doc alchemist aggressive-indent ace-link ac-ispell))
+ '(paradox-automatically-star t)
+ '(paradox-github-token t)
+ '(sql-mode-hook '(sqlind-minor-mode) t)
+ '(standard-indent 2)
+ '(typescript-indent-level 2)
+ '(warning-suppress-log-types '((comp)))
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)
  '(web-mode-indent-offset 2)
