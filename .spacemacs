@@ -76,7 +76,7 @@ values."
      emoji
      koziej
      elm
-     ocaml
+     ;ocaml
      imenu-list
      dap
      (colors :variables colors-colorize-identifiers 'all)
@@ -387,72 +387,8 @@ you should place your code here."
             (lambda ()
               (local-set-key [(meta return)] 'markdown-insert-list-item)))
   (editorconfig-mode 1)
-  (require 'opam-user-setup "~/.emacs.d/private/opam-user-setup.el")
-
   )
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(create-lockfiles nil)
- '(exec-path
-   '("/usr/local/heroku/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1/bin/" "/home/marcin/.rvm/gems/ruby-2.3.1@global/bin/" "/home/marcin/.rvm/rubies/ruby-2.3.1/bin/" "/home/marcin/bin/" "/usr/local/sbin/" "/usr/local/bin/" "/usr/sbin/" "/usr/bin/" "/sbin/" "/bin/" "/usr/games/" "/usr/local/games/" "/snap/bin/" "/home/marcin/.rvm/bin/" "/usr/lib/x86_64-linux-gnu/emacs/26.1/x86_64-linux-gnu/" "/usr/local/bin"))
- '(flycheck-emacs-lisp-load-path 'inherit)
- '(forge-alist
-   '(("github.com" "api.github.com" "github.com" forge-github-repository)
-     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
-     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
-     ("framagit.org" "framagit.org/api/v4" "framagit.org" forge-gitlab-repository)
-     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org" forge-gitea-repository)
-     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org" forge-gogs-repository)
-     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org" forge-bitbucket-repository)
-     ("git.savannah.gnu.org" nil "git.savannah.gnu.org" forge-cgit**-repository)
-     ("git.kernel.org" nil "git.kernel.org" forge-cgit-repository)
-     ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
-     ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
-     ("git.sr.ht" nil "git.sr.ht" forge-srht-repository)
-     ("gitlab.wemove.eu:2222" "gitlab.wemove.eu/api/v4" "gitlab.wemove.eu" forge-gitlab-repository)))
- '(global-vi-tilde-fringe-mode nil)
- '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
- '(js-indent-level 2)
- '(js2-basic-offset 2)
- '(js2-strict-missing-semi-warning nil)
- '(org-agenda-files '("~/Desktop"))
- '(package-selected-packages
-   '(reason-mode counsel-tramp helpful elisp-refs yaml-mode ws-butler writeroom-mode visual-fill-column web-mode toc-org sql-indent spaceline powerline rvm ruby-test-mode robe restart-emacs request popwin pipenv pyvenv persp-mode org-mime org-download mmm-mode link-hint js2-mode hungry-delete highlight-parentheses highlight-indentation gnuplot git-messenger git-link forge ghub flycheck eyebrowse evil-nerd-commenter evil-matchit evil-magit magit git-commit with-editor eglot eldoc xref editorconfig dumb-jump csv-mode cider seq clojure-mode parseclj a auto-highlight-symbol auto-compile packed ansible anaconda-mode company elixir-mode lsp-mode projectile ht helm helm-core iedit anzu smartparens transient multiple-cursors json-snatcher markdown-mode which-key use-package evil goto-chg hydra org-plus-contrib yasnippet-snippets yapfify winum wgrep web-beautify vue-mode volatile-highlights uuidgen utop unfill undo-tree tuareg treepy treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil tide tagedit symon symbol-overlay string-inflection sphinx-doc spaceline-all-the-icons smex smeargle slim-mode sesman seeing-is-believing scss-mode sass-mode ruby-tools ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode rjsx-mode rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters queue pytest pyenv-mode py-isort pug-mode project prettier-js pippel pip-requirements pcre2el password-generator parseedn paradox overseer orgit org-superstar org-rich-yank org-projectile org-present org-pomodoro org-cliplink org-brain open-junk-file ocp-indent ocamlformat ob-elixir nodejs-repl nameless mwim move-text minitest merlin-eldoc markdown-toc magit-svn magit-section magit-gitflow macrostep lv lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-ivy lorem-ipsum livid-mode live-py-mode json-navigator json-mode js2-refactor js-doc jinja2-mode ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy indent-guide importmagic impatient-mode hybrid-mode hl-todo highlight-numbers helm-make graphql-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine gh-md fuzzy font-lock+ flymake flycheck-pos-tip flycheck-package flycheck-ocaml flycheck-elsa flycheck-elm flycheck-credo flx-ido fancy-battery expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-cleverparens evil-args evil-anzu emr emojify emoji-cheat-sheet-plus emmet-mode elm-test-runner elm-mode elisp-slime-nav dune dotenv-mode diminish devdocs define-word dap-mode cython-mode counsel-projectile counsel-css company-web company-lsp company-go company-emoji company-ansible company-anaconda column-enforce-mode color-identifiers-mode closql clojure-snippets clean-aindent-mode cider-eval-sexp-fu chruby centered-cursor-mode bundler blacken bind-key auto-yasnippet async ansible-doc alchemist aggressive-indent ace-link ac-ispell))
- '(paradox-automatically-star t)
- '(paradox-github-token t)
- '(sql-mode-hook '(sqlind-minor-mode) t)
- '(standard-indent 2)
- '(typescript-indent-level 2)
- '(warning-suppress-types '((comp)))
- '(web-mode-code-indent-offset 2)
- '(web-mode-css-indent-offset 2)
- '(web-mode-indent-offset 2)
- '(web-mode-markup-indent-offset 2))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use

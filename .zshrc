@@ -1,7 +1,16 @@
+
+env-file()
+{
+  setopt -a 
+  source $1
+  shift
+  "$@"
+  setopt +a
+}
 # If you come from bash you might have to change your $PATH.
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/marcin/.oh-my-zsh"
+export ZSH="/home/marcin/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -195,3 +204,22 @@ export LS_COLORS=$(vivid -m 24-bit generate ayu)
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
+alias urql-ver="grep version node_modules/@urql/core/package.json"
+alias da="direnv allow"
+
+alias bat=batcat
+
+env-file()
+{
+  setopt -a
+  source $1
+  shift
+  "$@"
+  setopt +a
+}
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
