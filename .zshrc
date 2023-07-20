@@ -36,6 +36,7 @@ plugins=(git ruby rvm mix colorize heroku)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+autoload zmv
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -195,15 +196,15 @@ alias kr='kratos -e http://kratos:4434'
 
 
 # opam configuration
-test -r /home/marcin/.opam/opam-init/init.zsh && . /home/marcin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+[[ ! -r /home/marcin/.opam/opam-init/init.zsh ]] || source /home/marcin/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # vivid https://github.com/sharkdp/vivid
 export LS_COLORS=$(vivid -m 24-bit generate ayu)
 # export LS_COLORS=$(vivid -m 8-bit generate ayu)
 
+alias youtube-mp3="yt-dlp -f ba -x --audio-format mp3 -o '%(id)s.mp3'"
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+. /opt/asdf-vm/asdf.sh
 
 alias urql-ver="grep version node_modules/@urql/core/package.json"
 alias da="direnv allow"
@@ -219,6 +220,7 @@ env-file()
   setopt +a
 }
 
+alias hx=helix
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
