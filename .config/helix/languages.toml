@@ -1,0 +1,194 @@
+## 
+## !!! WARNING !!! 
+## Helix will use queries in /var/lib/helix/runtime/grammars and will ignore ones in ~/.local/helix 
+## 
+
+
+# -----< LSP >---------------------------------------------- 
+[language-server.next_ls]
+command = "/home/marcin/.local/bin/next_ls"
+args = ["--stdio=true"]
+
+[language-server.typescript]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[language-server.ocaml]
+command = "ocaml-language-server"
+args = ["--stdio"] 
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+# Helix GPT
+[language-server.helix-gpt]
+# command = "helix-gpt"
+command = "/home/marcin/Projects/external/helix-gpt/dist/helix-gpt"
+args = ["--handler", "copilot"]
+# args = ["--handler", "copilot", "--logFile", "/tmp/helix-gpt.log"] # openai
+
+# -----< Languages >---------------------------------------------- 
+[[language]]
+name = "elixir"
+scope = "source.elixir"
+file-types = ["ex", "exs"]
+roots = ["mix.exs"]
+language-servers = ["next_ls", "helix-gpt"]
+formatter = { command = "git", args = ["stripspace"] }
+
+[[language]]
+name = "typescript"
+scope = "source.ts"
+file-types = ["ts"]
+roots = ["package.json"]
+language-servers = ["typescript", "helix-gpt"]
+
+[[language]]
+name = "jsx"
+file-types = ["jsx"]
+roots = ["package.json"]
+language-servers = ["typescript", "helix-gpt"]
+
+[[language]]
+name = "python"
+file-types = ["py"]
+roots = ["setup.py", "Pipfile", "requirements.txt", "project.toml"]
+language-servers = ["pyright", "helix-gpt"]
+
+
+
+[[language]]
+name = "rescript"
+file-types = ["re", "res"]
+roots = ["dune-project"]
+language-servers = [{name = "ocaml"}]
+
+[[language]]
+name = "dune"
+scope = "source.dune"
+file-types = ["dune"]
+roots = ["dune-project"]
+
+[[language]]
+name = "svelte"
+file-types = ["svelte", "svelte.js"]
+roots = ["package.json"]
+language-servers = ["svelteserver", "helix-gpt"]
+
+[[grammar]]
+name = "dune"
+source = { path = "/home/marcin/Projects/external/tree-sitter-dune"}
+# source = { git = "https://github.com/marcinkoziej/tree-sitter-dune.git", rev = "b7361e183c4ea91f7e091d3ac2c49dd345a865e0" }
+
+[[grammar]]
+name = "gleam"
+source = { git = "https://github.com/gleam-lang/tree-sitter-gleam.git", rev = "297031dce60e07acf90345d62777623469e46027" }
+
+[[language]]
+name = "rust"
+#language-servers = ["lsp-ai"]
+language-servers = ["rust-analyzer", "helix-gpt"]
+# language-servers = ["helix-gpt"]
+
+
+
+
+# LSP AI - not happy with it!
+# Config example https://github.com/SilasMarvin/lsp-ai/blob/main/examples/helix/openai-chat-code-completion.toml
+[language-server.lsp-ai]
+command = "lsp-ai"
+
+[language-server.lsp-ai.config.memory]
+file_store = { }
+[language-server.lsp-ai.config.models.model1]
+type = "open_ai"
+chat_endpoint = "https://api.openai.com/v1/chat/completions"
+model =  "gpt-4o"
+auth_token_env_var_name = "OPENAI_API_KEY"
+
+# ---< here goes prompt engineereing >---
+# ---< 1. chat                       >---
+[[language-server.lsp-ai.config.chat]]
+trigger = "!C"
+action_display_name = "Chat"
+model = "model1"
+
+[language-server.lsp-ai.config.chat.parameters]
+max_context = 4096
+max_tokens = 1024
+
+[[language-server.lsp-ai.config.chat.parameters.messages]]
+role = "system"
+content = "You are a code assistant chatbot. The user will ask you for assistance coding and you will do you best to answer succinctly and accurately"
+
+
+[[language-server.lsp-ai.config.chat]]
+trigger = "!X"
+action_display_name = "Chat with context"
+model = "model1"
+
+[language-server.lsp-ai.config.chat.parameters]
+max_context = 4096
+max_tokens = 1024
+
+[[language-server.lsp-ai.config.chat.parameters.messages]]
+role = "system"
+content = "You are a code assistant chatbot. The user will ask you for assistance coding and you will do you best to answer succinctly and accurately given the code context:\n\n{SELECTED_TEXT}"
+
+  
+## Configure the messages per your needs
+# ---< 1. code completion           >---
+[language-server.lsp-ai.config.completion]
+model = "model1"
+[language-server.lsp-ai.config.completion.parameters]
+max_tokens = 128
+max_context = 2048
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "system"
+content = "Instructions:\n- You are an AI programming assistant.\n- Given a piece of code with the cursor location marked by \"<CURSOR>\", replace \"<CURSOR>\" with the correct code or comment.\n- Output the code replacing the \"<CURSOR>\"\n- Ensure that your completion fits within the language context of the provided code snippet (e.g., Python, JavaScript, Rust).\n\nRules:\n- Only respond with code or comments.\n- Only replace \"<CURSOR>\"; do not include any previously written code.\n- Never include \"<CURSOR>\" in your response\n- If the cursor is within a comment, complete the comment meaningfully.\n- Handle ambiguous cases by providing the most contextually appropriate completion.\n- Be consistent with your responses."
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "def greet(name):\n    print(f\"Hello, {<CURSOR>}\")"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "name"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "function sum(a, b) {\n    return a + <CURSOR>;\n}"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "b"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "fn multiply(a: i32, b: i32) -> i32 {\n    a * <CURSOR>\n}"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "b"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "# <CURSOR>\ndef add(a, b):\n    return a + b"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "Adds two numbers"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "# This function checks if a number is even\n<CURSOR>"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "def is_even(n):\n    return n % 2 == 0"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "{CODE}"
+
