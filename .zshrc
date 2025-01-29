@@ -73,13 +73,10 @@ alias ping8="ping 8.8.8.8"
 alias dip="docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 drm() { docker rm $(docker ps -q -a); }
 dri() { docker rmi $(docker images -q); }
+alias dkr="docker run --rm -ti"
 alias dkd="docker run -d -P"
 alias dki="docker run -t -i -P"
 db() { docker build -t="$1" .; }
-
-# Rancher
-alias rex="rancher exec -ti"
-alias rlog="rancher logs --tail=1000"
 
 alias xo=xdg-open
 alias beep="paplay /usr/share/sounds/ubuntu/stereo/message.ogg"
@@ -199,7 +196,7 @@ alias kr='kratos -e http://kratos:4434'
 [[ ! -r /home/marcin/.opam/opam-init/init.zsh ]] || source /home/marcin/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # vivid https://github.com/sharkdp/vivid
-export LS_COLORS=$(vivid -m 24-bit generate ayu)
+export LS_COLORS=$(vivid -m 24-bit generate snazzy)
 # export LS_COLORS=$(vivid -m 8-bit generate ayu)
 
 alias youtube-mp3="yt-dlp -f ba -x --audio-format mp3 -o '%(id)s.mp3'"
@@ -209,7 +206,6 @@ alias youtube-mp3="yt-dlp -f ba -x --audio-format mp3 -o '%(id)s.mp3'"
 alias urql-ver="grep version node_modules/@urql/core/package.json"
 alias da="direnv allow"
 
-alias bat=batcat
 
 env-file()
 {
@@ -221,7 +217,12 @@ env-file()
 }
 
 alias hx=helix
+alias mixxx="systemctl --user stop pulseaudio; /usr/bin/mixxx"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source /home/marcin/.config/broot/launcher/bash/br
+
+
