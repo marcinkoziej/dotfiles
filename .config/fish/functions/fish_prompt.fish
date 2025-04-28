@@ -4,11 +4,11 @@ function fish_prompt
     set -l normal (set_color normal)
     set -l usercolor (set_color $fish_color_user)
 
-    set -l delim " ♢ "
+    set -l delim (set_color cyan)"><"(set_color brcyan)"((,("(set_color white)"°"(set_color cyan)"> " # \U25BA
     # If we don't have unicode use a simpler delimiter
     string match -qi "*.utf-8" -- $LANG $LC_CTYPE $LC_ALL; or set delim ">"
 
-    fish_is_root_user; and set delim " Ⱥ "
+    fish_is_root_user; and set delim "#"
 
     set -l cwd (set_color $fish_color_cwd)
     if command -sq cksum
