@@ -15,9 +15,10 @@ if status is-interactive
 
     switch $os
         case Linux
-            abbr -a -- xdg-open
+            abbr -a -- xo xdg-open
             set bindir /usr/bin
             set -l asdf_init_script /opt/asdf-vm/asdf.fish
+            abbr -a -- hx helix
 
         case Darwin
             abbr -a -- xo open
@@ -30,7 +31,6 @@ if status is-interactive
         systemctl --user stop pulseaudio
         /usr/bin/mixxx
     end
-    # abbr -a -- hx helix
     abbr -a -- pingg ping google.com
     abbr -a -- ping8 ping 8.8.8.8
 
@@ -51,16 +51,16 @@ if status is-interactive
         source $asdf_init_script
     end
 
-    if which -s brew
+    if command -q brew
         brew shellenv | source
     end
 
-    if which -s direnv
+    if command -q direnv
         direnv hook fish | source # Direnv env loader
         abbr -a -- da direnv allow
     end
 
-    if which -s thefuck
+    if command -q thefuck
         thefuck --alias | source # Fix failed command
     end
 
