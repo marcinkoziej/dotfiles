@@ -47,7 +47,7 @@ if status is-interactive
     set -gx PAGER "bat -p"
     abbr -a -- b bat -p
 
-    if test -f $asdf_init_script
+    if test -f "$asdf_init_script"
         source $asdf_init_script
     end
 
