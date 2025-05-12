@@ -7,10 +7,10 @@ if status is-interactive
     end
 
     # Colors
-    if test $theme_variant = dark
-        set -Ux BAT_THEME gruvbox-dark
+    if test "$theme_variant" = dark
+        set -U BAT_THEME gruvbox-dark
     else
-        set -Ux BAT_THEME Coldark-Cold
+        set -U BAT_THEME Coldark-Cold
     end
 
     switch $os
