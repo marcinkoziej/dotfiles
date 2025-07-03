@@ -17,12 +17,12 @@ if status is-interactive
         case Linux
             abbr -a -- xdg-open
             set bindir /usr/bin
-            set -l asdf_init_script /opt/asdf-vm/asdf.fish
+            set asdf_init_script /opt/asdf-vm/asdf.fish
 
         case Darwin
             abbr -a -- xo open
             set bindir /opt/homebrew/bin
-            set -l asdf_init_script (brew --prefix asdf)/libexec/asdf.fish
+            set asdf_init_script (brew --prefix asdf)/libexec/asdf.fish
 
     end
 
@@ -81,8 +81,11 @@ if status is-interactive
 
 end
 
+set --export BUN_INSTALL "$HOME/.bun"
+
 set -U fish_user_paths $HOME/.local/bin $HOME/go/bin $HOME/.cargo/bin \
     /opt/google-cloud-cli/bin \
     /opt/homebrew/bin \
     /opt/homebrew/opt/mysql-client/bin /opt/homebrew/opt/libpq/bin \
+    $BUN_INSTALL/bin \
     $fish_user_paths
