@@ -7,17 +7,18 @@ if status is-interactive
     end
 
     # Colors
-    if test $theme_variant = dark
-        set -Ux BAT_THEME gruvbox-dark
+    if test "$theme_variant" = dark
+        set -U BAT_THEME gruvbox-dark
     else
-        set -Ux BAT_THEME Coldark-Cold
+        set -U BAT_THEME Coldark-Cold
     end
 
     switch $os
         case Linux
-            abbr -a -- xdg-open
+            abbr -a -- xo xdg-open
             set bindir /usr/bin
             set asdf_init_script /opt/asdf-vm/asdf.fish
+            abbr -a -- hx helix
 
         case Darwin
             abbr -a -- xo open
@@ -30,7 +31,6 @@ if status is-interactive
         systemctl --user stop pulseaudio
         /usr/bin/mixxx
     end
-    # abbr -a -- hx helix
     abbr -a -- pingg ping google.com
     abbr -a -- ping8 ping 8.8.8.8
 
@@ -51,16 +51,16 @@ if status is-interactive
         source $asdf_init_script
     end
 
-    if which -s brew
+    if command -q brew
         brew shellenv | source
     end
 
-    if which -s direnv
+    if command -q direnv
         direnv hook fish | source # Direnv env loader
         abbr -a -- da direnv allow
     end
 
-    if which -s thefuck
+    if command -q thefuck
         thefuck --alias | source # Fix failed command
     end
 
