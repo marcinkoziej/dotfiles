@@ -1,2 +1,2 @@
-require("marcin.packer")
 require("marcin.remap")
+require("marcin.lazy")
