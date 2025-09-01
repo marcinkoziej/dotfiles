@@ -20,16 +20,14 @@ return require('packer').startup(function(use)
 		  vim.cmd("colorscheme rose-pine")
 	  end
   }
-  --
-  -- use {
-  --  'nvim-treesitter/nvim-treesitter',
-  --  lazy = false,
-  --  branch = 'main',
-  --  build = ':TSUpdate'
-  -- }
 
   use("theprimeagen/harpoon")
 
   use("mbbill/undotree")
   use("tpope/vim-fugitive")
+
+ use("nvim-tree/nvim-web-devicons")
+ use("folke/which-key.nvim")
 end)
+
+

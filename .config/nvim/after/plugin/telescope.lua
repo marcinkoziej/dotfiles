@@ -6,7 +6,7 @@ vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope live grep' }
 vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>/', function()
 	builtin.grep_string({search = vim.fn.input("Grep > ")});
-end)
+end, { desc = "Telescope search" })
 
 
 
