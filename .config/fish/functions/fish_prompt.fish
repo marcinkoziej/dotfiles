@@ -19,7 +19,7 @@ function fish_prompt
         set -l shas (pwd -P | cksum | string split -f1 ' ' | math --base=hex | string sub -s 3 | string pad -c 0 -w 6 | string match -ra ..)
         set -l col 0x$shas[1..3]
 
-        if test $theme_variant = light
+        if test "$theme_variant" = light
             while test (math 0.2126 x $col[1] + 0.7152 x $col[2] + 0.0722 x $col[3]) -gt 200
                 set col[1] (math --base=hex "min(255, $col[1] - 60)")
                 set col[2] (math --base=hex "min(255, $col[2] - 60)")
