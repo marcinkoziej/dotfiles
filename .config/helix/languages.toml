@@ -92,6 +92,12 @@ language-servers = ["rust-analyzer", "helix-gpt"]
 # language-servers = ["helix-gpt"]
 
 
+[language-server.tinymist]
+command = "tinymist"
+
+[[language]]
+name = "typst"
+language-servers = ["tinymist"]
 
 
 # LSP AI - not happy with it!
