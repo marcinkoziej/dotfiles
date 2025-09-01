@@ -42,6 +42,9 @@ if status is-interactive
     abbr -a -- lg lazygit
     abbr -a -- docker-env docker inspect -f '{{range .Config.Env}}{{println .}}{{end}}'
 
+    abbr -a -- vim nvim
+    abbr -a -- vi nvim
+
     set -gx ANSIBLE_NOCOWS 1
     set -gx EDITOR $bindir/hx
     set -gx PAGER "bat -p"
