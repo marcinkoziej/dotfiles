@@ -1,3 +1,5 @@
+-- block cursor in insert mode 
+-- XXX there are many more configuration options
 vim.opt.guicursor = ""
 vim.opt.clipboard="unnamedplus"
 
