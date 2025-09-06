@@ -4,7 +4,17 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim"
   },
-  config = function()
+  opts = {
+      defaults = {
+          sorting_strategy= "ascending",
+          layout_config = {
+              prompt_position = "top",
+          }
+      }
+  },
+  config = function(_, opts)
+    require("telescope").setup(opts)
+
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
     vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope live grep' })
