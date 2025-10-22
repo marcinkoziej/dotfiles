@@ -46,16 +46,17 @@ if status is-interactive
     abbr -a -- vi nvim
 
     set -gx ANSIBLE_NOCOWS 1
-    set -gx EDITOR $bindir/hx
+    set -gx EDITOR $bindir/nvim
     set -gx PAGER "bat -p"
     abbr -a -- b bat -p
 
-    if test -f "$asdf_init_script"
-        source $asdf_init_script
-    end
 
     if command -q brew
         brew shellenv | source
+    end
+
+    if test -f "$asdf_init_script"
+        source $asdf_init_script
     end
 
     if command -q direnv
@@ -88,7 +89,9 @@ set --export BUN_INSTALL "$HOME/.bun"
 
 set -U fish_user_paths $HOME/.local/bin $HOME/go/bin $HOME/.cargo/bin \
     /opt/google-cloud-cli/bin \
-    /opt/homebrew/bin \
     /opt/homebrew/opt/mysql-client/bin /opt/homebrew/opt/libpq/bin \
     $BUN_INSTALL/bin \
-    $fish_user_paths
+    $HOME/.asdf/shims \
+    $fish_user_paths 
+    #    /opt/homebrew/bin \
+
